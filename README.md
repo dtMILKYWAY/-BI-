@@ -14,8 +14,6 @@
 
 ## 技术架构
 
-*在此处可以放一张您绘制的架构图，会非常加分！*
-
 - **数据湖 (Data Lake):** **MinIO** - 用于存储原始的CSV销售数据。
 - **ETL引擎 (ETL Engine):** **Apache Spark (PySpark)** - 负责从MinIO读取数据，进行清洗、转换、特征工程（如计算`total_price`），并构建星型模型。
 - **数据仓库 (Data Warehouse):** **PostgreSQL** - 存储经过Spark处理后的、干净规整的事实表（`fact_sales`）和维度表（`dim_products`）。
@@ -23,11 +21,11 @@
 - **BI可视化 (BI Tool):** **Apache Superset** - 连接PostgreSQL，制作可交互的数据仪表盘。
 - **容器化与编排:** **Docker & Docker Compose** - 管理和运行整个多组件平台。
 
-## 项目演进之路 (V1.0 -> V2.0)
+## 项目演进之路
 
 该原型成功实现了基础的BI分析，但也暴露了性能和扩展性的问题。
 
-为了解决这些问题，我将架构全面升级至V2.0。在升级过程中，我解决了诸多挑战，包括但不限于：
+为了解决这些问题，我解决了诸多挑战，包括但不限于：
 - **Docker多服务网络通信与配置问题。**
 
 - ![3a18c67514dd4bdfdfd455eb3e842e32](https://github.com/user-attachments/assets/213c7356-1650-4793-a670-e5737806cec0)
