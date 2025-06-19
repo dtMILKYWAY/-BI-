@@ -1,0 +1,68 @@
+version: "3.7"
+
+services:
+  db:
+    image: postgres:14
+    container_name: superset_db
+    restart: unless-stopped
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: superset
+      POSTGRES_USER: superset
+      POSTGRES_PASSWORD: superset
+    volumes:
+      - db_home:/var/lib/postgresql/data
+
+  redis:
+    image: redis:7
+    container_name: superset_cache
+    restart: unless-stopped
+    volumes:
+      - redis:/data
+
+  superset:
+    image: apache/superset
+    container_name: superset_app
+    restart: unless-stopped
+    ports:
+      - "8088:8088"
+    depends_on:
+      - db
+      - redis
+    environment:
+      - SUPERSET_SECRET_KEY=a_truly_long_and_very_secret_key_12345
+      # 核心：让主应用连接到PostgreSQL
+      - DATABASE_URL=postgresql+psycopg2://superset:superset@db:5432/superset
+    volumes:
+      - superset_home:/app/superset_home
+      
+  superset-worker:
+    image: apache/superset
+    container_name: superset_worker
+    restart: unless-stopped
+    depends_on:
+      - db
+      - redis
+    environment:
+      - SUPERSET_SECRET_KEY=a_truly_long_and_very_secret_key_12345
+      - DATABASE_URL=postgresql+psycopg2://superset:superset@db:5432/superset
+
+  minio:
+    image: minio/minio:latest
+    container_name: superset_minio_datalake
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    command: server /data --console-address ":9001"
+    environment:
+      - MINIO_ROOT_USER=minioadmin
+      - MINIO_ROOT_PASSWORD=minioadmin
+    volumes:
+      - minio_data:/data
+
+volumes:
+  db_home: {}
+  redis: {}
+  superset_home: {}
+  minio_data: {}
