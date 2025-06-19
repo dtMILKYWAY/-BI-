@@ -25,11 +25,17 @@
 
 ## 项目演进之路 (V1.0 -> V2.0)
 
-项目初期，为了快速验证流程，我搭建了一个V1.0的轻量级原型（**Pandas + SQLite**）。该原型成功实现了基础的BI分析，但也暴露了性能和扩展性的问题。
+该原型成功实现了基础的BI分析，但也暴露了性能和扩展性的问题。
 
 为了解决这些问题，我将架构全面升级至V2.0。在升级过程中，我解决了诸多挑战，包括但不限于：
 - **Docker多服务网络通信与配置问题。**
+
+- ![3a18c67514dd4bdfdfd455eb3e842e32](https://github.com/user-attachments/assets/213c7356-1650-4793-a670-e5737806cec0)
+
 - **Windows环境下Spark与Java、Hadoop的复杂环境配置与依赖版本冲突。**
+
+- ![fae45a6c1911e62e1721cdcf7fd27b61](https://github.com/user-attachments/assets/e0984b38-82b2-4adc-9a26-44aea2956a0d)
+
 - **百万级数据量下BI查询的超时问题，并通过创建索引和物化视图成功进行了性能优化。**
 
 ## 如何运行
@@ -51,7 +57,13 @@
 5.  访问 `http://localhost:8088` 查看Superset仪表盘。
 
 ## 最终成果展示
-
-*在这里可以放入几张您最满意的仪表盘截图。*
-
 ---
+![078ded5e8783c7ff9340e80a28755018](https://github.com/user-attachments/assets/a2f4931c-df41-4f3f-a6f6-e488be8ef1c2)
+![da6db7385ac2893dbaf1654b7e2be6af](https://github.com/user-attachments/assets/f558629b-bf5b-48cb-be99-adca9c5a96ec)
+![cae7661b040304b2e5a55f3955d01a5e](https://github.com/user-attachments/assets/34512bcd-4a3f-48e7-9660-5ef27c910af3)
+![938dd2681fe6d56e799a7bd2e8de6ee6](https://github.com/user-attachments/assets/411b3949-011b-4c1f-a30c-e61aaae29586)
+![4a4a18997ef615ee7918ff7e354825ea](https://github.com/user-attachments/assets/a744e1e6-c86b-4c35-9a98-9b688608c038)
+![8f705145181037c836435abb474ee949](https://github.com/user-attachments/assets/74063f8a-2e42-4110-8dc2-7882df6b3de6)
+
+
+
