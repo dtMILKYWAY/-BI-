@@ -35,6 +35,26 @@
 - ![fae45a6c1911e62e1721cdcf7fd27b61](https://github.com/user-attachments/assets/e0984b38-82b2-4adc-9a26-44aea2956a0d)
 
 - **百万级数据量下BI查询的超时问题，并通过创建索引和物化视图成功进行了性能优化。**
+-- 1. 删除可能存在的旧视图
+DROP MATERIALIZED VIEW IF EXISTS mv_sales_analytics;
+
+-- 2. 创建新的物化视图
+CREATE MATERIALIZED VIEW mv_sales_analytics AS
+SELECT
+  f.order_id,
+  f.user_id,
+  f.order_date,
+  f.city,
+  f.quantity,
+  f.total_price,
+  d."ProductName",
+  d."Category",
+  d."Price"
+FROM public.fact_sales AS f
+LEFT JOIN public.dim_products AS d ON f.product_key = d.product_key;
+
+-- 3. 为新视图创建索引
+CREATE INDEX idx_mv_sales_order_date ON mv_sales_analytics (order_date);
 
 ## 如何运行
 
